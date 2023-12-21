@@ -1,0 +1,70 @@
+# Ignore .env files
+.env.*.php
+.env.php
+.env
+.env.*
+
+# Ignore PHP 7.4+ preloader file
+preloader.php
+
+# Mac OS X dumps these all over the place.
+.DS_Store
+
+# Ignore the SimpleTest library if it is installed to /test/.
+/test/simpletest/
+
+# Ignore PHPUnit coverage file
+clover.xml
+
+# Ignore IDE's configuration files
+.idea
+*.sublime-project
+*.sublime-workspace
+
+# Ignore PHP CS Fixer local config and cache
+.php_cs
+.php_cs.cache
+.php-cs-fixer.cache
+
+# Ignore PHPStan local config
+.phpstan.neon
+
+# Ignore phpDocumentor's local config and artifacts
+.phpdoc/*
+phpdoc.xml
+
+# ignore phpunit cache
+.phpunit.result.cache
+
+# ignore storage temp dir
+storage/tmp
+
+# ignore shared storage dir
+storage/shared
+
+# ignore laravel passport keys
+storage/oauth-public.key
+storage/oauth-private.key
+
+/bootstrap/compiled.php
+/vendor
+/node_modules
+/nodejs/node_modules
+composer.phar
+Thumbs.db
+bower_components
+storage/debugbar
+app/Accounting/config/credentials.json
+composer-update.sh
+ray.php
+
+# Docker volumes
+docker-volumes
+
+# Ignore logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+dynamoDB/docker/dynamodb/*.db

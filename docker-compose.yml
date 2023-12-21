@@ -1,0 +1,62 @@
+version: "3.7"
+services:
+  mysql:
+    image: mysql:8
+    command: --max_allowed_packet=32505856
+    container_name: mysql
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - ./docker-volumes/mysql-dump:/docker-entrypoint-initdb.d
+      - ./docker-volumes/mysql:/var/lib/mysql
+    networks:
+      - db_network
+
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./docker-volumes/redis:/data
+    entrypoint: redis-server --appendonly yes
+    restart: always
+    networks:
+      - db_network
+
+  mssql:
+    container_name: mssql
+    image: mcr.microsoft.com/azure-sql-edge
+    networks:
+      - db_network
+    environment:
+      - ACCEPT_EULA=1
+      - MSSQL_SA_PASSWORD=MyPass@word
+      - MSSQL_PID=Developer
+      - MSSQL_USER=sa
+    ports:
+      - 1433:1433
+    volumes:
+      - ./docker-volumes/mssql:/var/opt/mssql
+    restart: unless-stopped
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: always
+    volumes:
+      - ./docker-volumes/mongodb_data:/data/db
+    ports:
+      - 27017:27017
+    networks:
+      - db_network 
+
+networks:
+  db_network:
+    driver: bridge
